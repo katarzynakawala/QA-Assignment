@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchFormComponent } from './search-form.component';
 import { of } from 'rxjs';
 
-fdescribe('SearchFormComponent', () => {
+describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
   let fixture: ComponentFixture<SearchFormComponent>;
   let mockRouter: jasmine.SpyObj<Router>;
