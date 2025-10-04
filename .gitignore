@@ -1,2 +1,6 @@
 node_modules
 .angular
+
+# Allure Reports
+allure-results/
+allure-report/
