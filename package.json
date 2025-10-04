@@ -7,6 +7,8 @@
 		"start": "ng serve",
 		"build": "ng build --prod",
 		"test": "ng test",
+		"test:unit": "ng test --watch=false --browsers=ChromeHeadless --exclude='**/contracts/**/*.spec.ts'",
+		"test:contract": "ng test --watch=false --browsers=ChromeHeadless --include='**/contracts/**/*.spec.ts'",
 		"lint": "ng lint"
 	},
 	"private": true,
