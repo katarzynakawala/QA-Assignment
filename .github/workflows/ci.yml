@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  unit-tests:
+    name: Unit Tests
     runs-on: ubuntu-latest
     
     steps:
@@ -24,4 +25,24 @@ jobs:
       run: npm i
       
     - name: Run unit tests
-      run: npm test -- --watch=false --browsers=ChromeHeadless
+      run: npm run test:unit
+
+  contract-tests:
+    name: Contract Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm i
+      
+    - name: Run contract tests (live SWAPI API)
+      run: npm run test:contract
