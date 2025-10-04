@@ -16,6 +16,12 @@ reach out to us at any time. We're here to help!
 - `npm run test:allure` - Run all tests with Allure reporting
 - `npm run test:allure:report` - Run tests, generate report, and open it
 
+### CI/CD Pipeline
+The GitHub Actions workflow automatically runs the complete test suite with Allure reporting on:
+- **All branch pushes** - Provides immediate feedback during development
+- **Pull requests** - Validates changes before merge
+- **Main branch** - Ensures production readiness
+
 ### Allure Test Reports
 This project includes comprehensive Allure reporting for enhanced test visualization:
 
