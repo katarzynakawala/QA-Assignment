@@ -20,158 +20,140 @@ describe('Live SWAPI Integration Tests', () => {
     service = TestBed.inject(ApiService);
   });
 
+  // Helper function to validate API response with HTTP status
+  const validateApiResponse = (
+    searchType: string, 
+    query: string, 
+    done: DoneFn,
+    validateContent?: (response: any) => void
+  ) => {
+    service.searchWithResponse(searchType, query).subscribe({
+      next: (httpResponse) => {
+        // Always validate HTTP status
+        expect(httpResponse.status).toBe(200);
+        expect(httpResponse.statusText).toBe('OK');
+        
+        // Validate response structure
+        const response = httpResponse.body;
+        expect(response).toBeDefined();
+        expect(response.result).toBeDefined();
+        expect(Array.isArray(response.result)).toBe(true);
+        
+        // Custom content validation if provided
+        if (validateContent) {
+          validateContent(response);
+        }
+        
+        done();
+      },
+      error: (error) => {
+        fail(`API call failed: ${error.message}`);
+        done();
+      }
+    });
+  };
+
   describe('Real People Search API', () => {
-    it('should return valid people data for "luke" search', (done) => {
-      service.search('people', 'luke').subscribe({
-        next: (response) => {
-          // Validate response structure
-          expect(response).toBeDefined();
-          expect(response.result).toBeDefined();
-          expect(Array.isArray(response.result)).toBe(true);
+    it('should return HTTP 200 and valid people data for "luke" search', (done) => {
+      validateApiResponse('people', 'luke', done, (response) => {
+        if (response.result.length > 0) {
+          const person = response.result[0];
           
-          if (response.result.length > 0) {
-            const person = response.result[0];
-            
-            // Validate required structure that frontend expects
-            expect(person.properties).toBeDefined();
-            expect(person.properties.name).toBeDefined();
-            expect(person.properties.height).toBeDefined();
-            expect(person.properties.mass).toBeDefined();
-            
-            // Validate data types
-            expect(typeof person.properties.name).toBe('string');
-            expect(typeof person.properties.height).toBe('string');
-            expect(typeof person.properties.mass).toBe('string');
-            
-            // Validate Luke Skywalker specific data (contract validation)
-            expect(person.properties.name.toLowerCase()).toContain('luke');
-            
-            console.log('✅ Live People API Response Structure Valid');
-            console.log('Sample person:', person.properties.name);
-          }
+          // Validate required structure that frontend expects
+          expect(person.properties).toBeDefined();
+          expect(person.properties.name).toBeDefined();
+          expect(person.properties.height).toBeDefined();
+          expect(person.properties.mass).toBeDefined();
           
-          done();
-        },
-        error: (error) => {
-          fail(`Live API call failed: ${error.message}`);
-          done();
+          // Validate data types
+          expect(typeof person.properties.name).toBe('string');
+          expect(typeof person.properties.height).toBe('string');
+          expect(typeof person.properties.mass).toBe('string');
+          
+          // Validate Luke Skywalker specific data (contract validation)
+          expect(person.properties.name.toLowerCase()).toContain('luke');
+          
+          console.log('✅ Live People API Response Structure Valid');
+          console.log('Sample person:', person.properties.name);
         }
       });
-    }, 10000); // 10 second timeout for API call
+    }, 10000);
 
-    it('should handle empty results for non-existent people', (done) => {
-      service.search('people', 'nonexistentcharacter123456').subscribe({
-        next: (response) => {
-          expect(response).toBeDefined();
-          expect(response.result).toBeDefined();
-          expect(Array.isArray(response.result)).toBe(true);
-          expect(response.result.length).toBe(0);
-          
-          console.log('✅ Empty results handled correctly');
-          done();
-        },
-        error: (error) => {
-          fail(`Live API call failed: ${error.message}`);
-          done();
-        }
+    it('should return HTTP 200 with empty results for non-existent people', (done) => {
+      validateApiResponse('people', 'nonexistentcharacter123456', done, (response) => {
+        expect(response.result.length).toBe(0);
+        console.log('✅ Empty results handled correctly');
       });
     }, 10000);
   });
 
   describe('Real Planets Search API', () => {
-    it('should return valid planet data for "tatooine" search', (done) => {
-      service.search('planets', 'tatooine').subscribe({
-        next: (response) => {
-          // Validate response structure
-          expect(response).toBeDefined();
-          expect(response.result).toBeDefined();
-          expect(Array.isArray(response.result)).toBe(true);
+    it('should return HTTP 200 and valid planet data for "tatooine" search', (done) => {
+      validateApiResponse('planets', 'tatooine', done, (response) => {
+        if (response.result.length > 0) {
+          const planet = response.result[0];
           
-          if (response.result.length > 0) {
-            const planet = response.result[0];
-            
-            // Validate required structure that frontend expects
-            expect(planet.properties).toBeDefined();
-            expect(planet.properties.name).toBeDefined();
-            expect(planet.properties.climate).toBeDefined();
-            expect(planet.properties.terrain).toBeDefined();
-            
-            // Validate data types
-            expect(typeof planet.properties.name).toBe('string');
-            expect(typeof planet.properties.climate).toBe('string');
-            expect(typeof planet.properties.terrain).toBe('string');
-            
-            // Validate Tatooine specific data (contract validation)
-            expect(planet.properties.name.toLowerCase()).toContain('tatooine');
-            expect(planet.properties.climate.toLowerCase()).toContain('arid');
-            
-            console.log('✅ Live Planets API Response Structure Valid');
-            console.log('Sample planet:', planet.properties.name);
-          }
+          // Validate required structure that frontend expects
+          expect(planet.properties).toBeDefined();
+          expect(planet.properties.name).toBeDefined();
+          expect(planet.properties.climate).toBeDefined();
+          expect(planet.properties.terrain).toBeDefined();
           
-          done();
-        },
-        error: (error) => {
-          fail(`Live API call failed: ${error.message}`);
-          done();
+          // Validate data types
+          expect(typeof planet.properties.name).toBe('string');
+          expect(typeof planet.properties.climate).toBe('string');
+          expect(typeof planet.properties.terrain).toBe('string');
+          
+          // Validate Tatooine specific data (contract validation)
+          expect(planet.properties.name.toLowerCase()).toContain('tatooine');
+          expect(planet.properties.climate.toLowerCase()).toContain('arid');
+          
+          console.log('✅ Live Planets API Response Structure Valid');
+          console.log('Sample planet:', planet.properties.name);
         }
       });
     }, 10000);
 
-    it('should handle empty results for non-existent planets', (done) => {
-      service.search('planets', 'nonexistentplanet123456').subscribe({
-        next: (response) => {
-          expect(response).toBeDefined();
-          expect(response.result).toBeDefined();
-          expect(Array.isArray(response.result)).toBe(true);
-          expect(response.result.length).toBe(0);
-          
-          console.log('✅ Empty planet results handled correctly');
-          done();
-        },
-        error: (error) => {
-          fail(`Live API call failed: ${error.message}`);
-          done();
-        }
+    it('should return HTTP 200 with empty results for non-existent planets', (done) => {
+      validateApiResponse('planets', 'nonexistentplanet123456', done, (response) => {
+        expect(response.result.length).toBe(0);
+        console.log('✅ Empty planet results handled correctly');
       });
     }, 10000);
   });
 
   describe('API Availability and Response Times', () => {
-    it('should respond within reasonable time limits', (done) => {
+    it('should respond within reasonable time limits with HTTP 200', (done) => {
       const startTime = Date.now();
       
-      service.search('people', 'luke').subscribe({
-        next: (response) => {
-          const responseTime = Date.now() - startTime;
-          
-          expect(responseTime).toBeLessThan(5000); // Should respond within 5 seconds
-          expect(response).toBeDefined();
-          
-          console.log(`✅ API Response Time: ${responseTime}ms`);
-          done();
-        },
-        error: (error) => {
-          fail(`API performance test failed: ${error.message}`);
-          done();
-        }
+      validateApiResponse('people', 'luke', done, () => {
+        const responseTime = Date.now() - startTime;
+        
+        expect(responseTime).toBeLessThan(5000); // Should respond within 5 seconds
+        
+        console.log(`✅ API Response Time: ${responseTime}ms`);
       });
     }, 10000);
 
-    it('should return consistent data structure across multiple calls', (done) => {
-      const calls = [
-        service.search('people', 'luke'),
-        service.search('people', 'leia'),
-        service.search('planets', 'tatooine')
+    it('should return HTTP 200 and consistent data structure across multiple calls', (done) => {
+      const testCalls = [
+        { type: 'people', query: 'luke' },
+        { type: 'people', query: 'leia' },
+        { type: 'planets', query: 'tatooine' }
       ];
 
       let completedCalls = 0;
-      const totalCalls = calls.length;
+      const totalCalls = testCalls.length;
 
-      calls.forEach((call, index) => {
-        call.subscribe({
-          next: (response) => {
+      testCalls.forEach((testCall, index) => {
+        service.searchWithResponse(testCall.type, testCall.query).subscribe({
+          next: (httpResponse) => {
+            // Validate HTTP status code
+            expect(httpResponse.status).toBe(200);
+            expect(httpResponse.statusText).toBe('OK');
+            
             // Validate consistent structure
+            const response = httpResponse.body;
             expect(response).toBeDefined();
             expect(response.result).toBeDefined();
             expect(Array.isArray(response.result)).toBe(true);
@@ -194,15 +176,20 @@ describe('Live SWAPI Integration Tests', () => {
   });
 
   describe('Error Handling Validation', () => {
-    it('should handle malformed search queries gracefully', (done) => {
+    it('should handle malformed search queries gracefully with proper HTTP status', (done) => {
       // Test with special characters and edge cases
       const edgeCases = ['', ' ', '!@#$%', 'very-long-search-query-that-probably-wont-exist-in-the-database'];
       let completedTests = 0;
 
       edgeCases.forEach((query) => {
-        service.search('people', query).subscribe({
-          next: (response) => {
+        service.searchWithResponse('people', query).subscribe({
+          next: (httpResponse) => {
+            // Should return HTTP 200 even for edge cases
+            expect(httpResponse.status).toBe(200);
+            expect(httpResponse.statusText).toBe('OK');
+            
             // Should still return valid structure even for edge cases
+            const response = httpResponse.body;
             expect(response).toBeDefined();
             // Check for either 'result' (from API) or 'results' (from SWAPI)
             const resultProperty = response.result || response.results;
