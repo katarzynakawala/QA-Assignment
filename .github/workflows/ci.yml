@@ -2,13 +2,13 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ '*' ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  fast-unit-tests:
-    name: Fast Unit Tests
+  test-with-allure:
+    name: Tests with Allure Report
     runs-on: ubuntu-latest
     
     steps:
@@ -24,27 +24,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
       
-    - name: Run unit tests (quick feedback)
-      run: npm run test:unit
-
-  comprehensive-tests:
-    name: Full Test Suite with Allure Report
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18.x'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Run complete test suite with Allure
+    - name: Run all tests with Allure
       run: npm run test:allure
       
     - name: Generate Allure report
