@@ -4,3 +4,9 @@ node_modules
 # Allure Reports
 allure-results/
 allure-report/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

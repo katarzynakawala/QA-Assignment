@@ -11,13 +11,47 @@ reach out to us at any time. We're here to help!
 
 ### Testing Commands
 - `npm test` - Run tests interactively in watch mode
-- `npm run test:unit` - Run unit tests (headless)
-- `npm run test:contract` - Run contract tests against live SWAPI API
-- `npm run test:allure` - Run all tests with Allure reporting
+- `npm run test:unit` - Run unit tests only (headless)
+- `npm run test:contract` - Run contract tests only (live SWAPI API)
+- `npm run test:all` - **Run complete test suite (unit + contract + E2E)**
+- `npm run test:allure` - Run complete test suite with Allure reporting
 - `npm run test:allure:report` - Run tests, generate report, and open it
 
+### End-to-End Testing with Playwright
+**Focused on critical business flows with Page Object Model:**
+- `npm run e2e` - Run E2E tests (2 critical scenarios, headless)
+- `npm run e2e:headed` - Run E2E tests with browser UI
+- `npm run e2e:debug` - Run E2E tests in debug mode
+- `npm run e2e:report` - View last E2E test report
+
+**Features:**
+- **Modern Playwright locators** (`getByRole`, `getByText`) for better accessibility and maintainability
+- Page Object Model (POM) architecture for maintainability
+- Automatic screenshots and videos on test failures
+- Test isolation with browser state cleanup
+- beforeEach/afterEach hooks for proper setup and teardown
+
+### Code Quality & Linting
+**Modern TypeScript-ESLint with flat config (optional):**
+- `npm run lint` - Check code quality and style issues
+- `npm run lint:fix` - Automatically fix linting issues where possible
+
+**Features:**
+- **TypeScript-ESLint** - Modern replacement for deprecated TSLint
+- **ESLint v9** with flat configuration format
+- **Test environment support** - Proper globals for Jasmine and Playwright
+- **TypeScript-aware rules** - Better type checking and code quality
+- **Not enforced in CI** - Available for development use without blocking merges [just for the sake of this interview task not to change most of the app code]
+
 ### CI/CD Pipeline
-The GitHub Actions workflow automatically runs the complete test suite with Allure reporting on:
+**Comprehensive testing pipeline with optimized performance:**
+- **Unit Tests (50)** - Component and service logic validation
+- **Contract Tests (7)** - Live SWAPI API validation  
+- **E2E Tests (2)** - Critical business flow validation
+- **Allure Reporting** - Professional test visualization
+- **Playwright Reports** - E2E test execution details
+
+Triggers automatically on:
 - **All branch pushes** - Provides immediate feedback during development
 - **Pull requests** - Validates changes before merge
 - **Main branch** - Ensures production readiness
@@ -36,6 +70,13 @@ The Allure reports provide:
 - 🔍 **Detailed Test Cases** - Step-by-step execution with screenshots/logs
 - 📈 **Historical Trends** - Track test performance over time
 - 🏷️ **Test Categories** - Organized by features and test types
+
+### E2E Test Coverage
+The Playwright end-to-end tests validate the **critical user journeys**:
+- 🔍 **People Search Flow** - Complete search process for Star Wars characters  
+- 🪐 **Planet Search Flow** - Complete search process for Star Wars planets
+
+**Focus**: Business-critical paths only. Detailed functionality covered by unit and contract tests.
 
 Reports are automatically generated in CI/CD pipeline and available as GitHub Actions artifacts.
 
