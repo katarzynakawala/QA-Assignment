@@ -31,8 +31,20 @@ reach out to us at any time. We're here to help!
 - Test isolation with browser state cleanup
 - beforeEach/afterEach hooks for proper setup and teardown
 
+### Code Quality & Linting
+**Modern TypeScript-ESLint with flat config:**
+- `npm run lint` - Check code quality and style issues
+- `npm run lint:fix` - Automatically fix linting issues where possible
+
+**Features:**
+- **TypeScript-ESLint** - Modern replacement for deprecated TSLint
+- **ESLint v9** with flat configuration format
+- **Test environment support** - Proper globals for Jasmine and Playwright
+- **TypeScript-aware rules** - Better type checking and code quality
+
 ### CI/CD Pipeline
 The GitHub Actions workflow automatically runs the complete test suite including:
+- **Code Quality** - TypeScript-ESLint validation
 - **Unit Tests (50)** - Component and service logic validation
 - **Contract Tests (7)** - Live SWAPI API validation  
 - **E2E Tests (2)** - Critical business flow validation
