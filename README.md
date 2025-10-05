@@ -5,6 +5,9 @@ and can't wait to see what you come up with for the assignment. Make sure to
 carefully read the requirements, and if you need any assistance, feel free to
 reach out to us at any time. We're here to help!
 
+## 🏗️ Architecture & Design Decisions
+This project implements a comprehensive testing strategy with documented architectural decisions. For detailed technical choices, trade-offs, and implementation reasoning, see **[Architectural Decision Records (ADRs)](./docs/adr/README.md)**.
+
 ### Run the app
 - Run `npm i` to install all the project dependencies.
 - Run `npm start` to start the dev server.
