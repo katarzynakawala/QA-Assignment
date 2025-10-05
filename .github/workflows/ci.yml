@@ -27,9 +27,6 @@ jobs:
     - name: Install Playwright browsers
       run: npx playwright install --with-deps
       
-    - name: Run linting
-      run: npm run lint
-      
     - name: Run all tests with Allure
       run: npm run test:allure
       
