@@ -44,7 +44,7 @@ reach out to us at any time. We're here to help!
 - **Not enforced in CI** - Available for development use without blocking merges [just for the sake of this interview task not to change most of the app code]
 
 ### CI/CD Pipeline
-The GitHub Actions workflow automatically runs the complete test suite including:
+**Comprehensive testing pipeline with optimized performance:**
 - **Unit Tests (50)** - Component and service logic validation
 - **Contract Tests (7)** - Live SWAPI API validation  
 - **E2E Tests (2)** - Critical business flow validation

@@ -34,7 +34,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        // Use system Chrome in CI for speed
+        channel: process.env.CI ? 'chrome' : undefined 
+      },
     },
   ],
 
