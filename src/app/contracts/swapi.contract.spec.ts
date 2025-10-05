@@ -2,6 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 
+// Jasmine global function declarations
+declare let describe: any;
+declare let it: any;
+declare let beforeEach: any;
+declare let expect: any;
+declare let fail: any;
+declare let console: any;
+
 /**
  * Live SWAPI Integration Tests
  * These tests make REAL calls to SWAPI to validate the contract.
@@ -24,7 +32,7 @@ describe('Live SWAPI Integration Tests', () => {
   const validateApiResponse = (
     searchType: string, 
     query: string, 
-    done: DoneFn,
+    done: () => void,
     validateContent?: (response: any) => void
   ) => {
     service.searchWithResponse(searchType, query).subscribe({
