@@ -48,7 +48,7 @@ This project implements a comprehensive testing strategy with documented archite
 
 ### CI/CD Pipeline
 **Comprehensive testing pipeline with optimized performance:**
-- **Unit Tests (50)** - Component and service logic validation
+- **Unit Tests (46)** - Component and service logic validation
 - **Contract Tests (7)** - Live SWAPI API validation  
 - **E2E Tests (3)** - Critical business flow validation
 - **Allure Reporting** - Professional test visualization

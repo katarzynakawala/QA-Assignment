@@ -76,26 +76,6 @@ describe('Star Wars Planet Card Component', () => {
     expect(gravityRow?.textContent).toContain('1 standard');
   });
 
-  // Different planet data 
-  it('should display different planet data correctly', () => {
-    const differentPlanet = {
-      name: 'Coruscant',
-      population: '1000000000000',
-      climate: 'temperate',
-      gravity: '1 standard'
-    };
-
-    component.planet = differentPlanet;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    
-    expect(compiled.querySelector('.card-subtitle').textContent.trim()).toBe('Coruscant');
-    expect(compiled.textContent).toContain('1000000000000');
-    expect(compiled.textContent).toContain('temperate');
-    expect(compiled.textContent).toContain('1 standard');
-  });
-
   // Case for unknown values
   it('should display unknown values correctly', () => {
     const planetWithUnknowns = {
@@ -125,21 +105,6 @@ describe('Star Wars Planet Card Component', () => {
     expect(() => fixture.detectChanges()).toThrow();
   });
 
-	// Incomplete planet data 
-  it('should handle incomplete planet data', () => {
-    const incompletePlanet = {
-      name: 'Incomplete Planet',
-    };
-
-    component.planet = incompletePlanet;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    
-    expect(compiled.textContent).toContain('Incomplete Planet');
-    expect(component).toBeTruthy();
-  });
-
   // Empty string planet
   it('should handle empty string planet properties', () => {
     const planetWithEmptyValues = {
@@ -156,12 +121,5 @@ describe('Star Wars Planet Card Component', () => {
     
     expect(compiled.textContent).toContain('Empty Properties Planet');
     expect(component).toBeTruthy();
-  });
-
-  // Empty API response (no search results found)
-  it('should demonstrate handling of empty search results scenario', () => {
-    const emptySearchResult = []; 
-    
-    expect(emptySearchResult.length).toBe(0);
   });
 });

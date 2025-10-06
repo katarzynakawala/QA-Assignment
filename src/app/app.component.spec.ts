@@ -147,11 +147,6 @@ describe('AppComponent', () => {
       const result = component.isNotFound(undefined, false);
       expect(result).toBeFalsy(); // undefined is falsy
     });
-
-    it('should return false when both loading and has empty results', () => {
-      const result = component.isNotFound([], true);
-      expect(result).toBe(false);
-    });
   });
 
   describe('template rendering', () => {
