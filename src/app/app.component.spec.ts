@@ -41,18 +41,18 @@ describe('AppComponent', () => {
     mockApiService = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>;
   });
 
-  it('should create', () => {
+  it('should create component successfully', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with undefined properties', () => {
+  it('should initialize with default undefined state', () => {
     expect(component.searchType).toBeUndefined();
     expect(component.searchResult).toBeUndefined();
     expect(component.isLoading).toBeUndefined();
   });
 
-  describe('ngOnInit', () => {
-    it('should make API call when both searchType and query are provided', () => {
+  describe('Component Initialization', () => {
+    it('should perform people search when valid searchType and query parameters are provided', () => {
       const mockResponse = {
         result: [
           {
@@ -79,7 +79,7 @@ describe('AppComponent', () => {
       expect(component.isLoading).toBe(false);
     });
 
-    it('should handle planets search correctly', () => {
+    it('should perform planets search and display results correctly', () => {
       const mockResponse = {
         result: [
           {
@@ -105,7 +105,7 @@ describe('AppComponent', () => {
       expect(component.searchResult).toEqual(mockResponse.result);
     });
 
-    it('should handle empty search results', () => {
+    it('should handle empty search results and set loading state to false', () => {
       const mockResponse = { result: [] };
       
       mockApiService.search.and.returnValue(of(mockResponse));
@@ -121,29 +121,29 @@ describe('AppComponent', () => {
     });
   });
 
-  describe('isNotFound method', () => {
-    it('should return true when searchResult is empty array and not loading', () => {
+  describe('Not Found State Detection (isNotFound)', () => {
+    it('should return true when search results are empty and not loading', () => {
       const result = component.isNotFound([], false);
       expect(result).toBe(true);
     });
 
-    it('should return false when searchResult has data', () => {
+    it('should return false when search results contain data', () => {
       const searchResult = [{ name: 'Luke' }];
       const result = component.isNotFound(searchResult, false);
       expect(result).toBe(false);
     });
 
-    it('should return false when still loading', () => {
+    it('should return false when search is still in progress (loading state)', () => {
       const result = component.isNotFound([], true);
       expect(result).toBe(false);
     });
 
-    it('should return false when searchResult is null', () => {
+    it('should return false when search results are null (initial state)', () => {
       const result = component.isNotFound(null, false);
       expect(result).toBeFalsy(); // null is falsy
     });
 
-    it('should return false when searchResult is undefined', () => {
+    it('should return false when search results are undefined (initial state)', () => {
       const result = component.isNotFound(undefined, false);
       expect(result).toBeFalsy(); // undefined is falsy
     });

@@ -11,11 +11,11 @@ declare let fail: any;
 declare let console: any;
 
 /**
- * Live SWAPI Integration Tests
+ * SWAPI Contract Tests
  * These tests make real calls to SWAPI to validate the contract.
  * Run with: npm run test:contract
  */
-describe('Live SWAPI Integration Tests', () => {
+describe('SWAPI Contract Tests', () => {
   let service: ApiService;
   
 

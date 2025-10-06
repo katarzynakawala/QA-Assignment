@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlanetComponent } from './planet.component';
 
-describe('planet card testcases', () => {
+describe('Star Wars Planet Card Component', () => {
   let component: PlanetComponent;
   let fixture: ComponentFixture<PlanetComponent>;
   
@@ -31,11 +31,11 @@ describe('planet card testcases', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create planet component successfully', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the correct planet name', () => {
+  it('should display planet name in card subtitle', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('Tatooine');
     
@@ -43,7 +43,7 @@ describe('planet card testcases', () => {
     expect(nameElement.textContent.trim()).toBe('Tatooine');
   });
 
-  it('should show the correct planet population', () => {
+  it('should display planet population information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('200000');
     

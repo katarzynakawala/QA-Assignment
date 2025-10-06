@@ -33,14 +33,14 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should initialize form with default values', () => {
+  it('should initialize search form with default values (people type, empty query)', () => {
     component.ngOnInit();
     
     expect(component.searchForm.get('searchType')?.value).toBe('people');
     expect(component.searchForm.get('query')?.value).toBe('');
   });
 
-  it('should require query field', () => {
+  it('should require query field to be filled for form validation', () => {
     component.ngOnInit();
     const queryControl = component.searchForm.get('query');
     
@@ -50,7 +50,7 @@ describe('SearchFormComponent', () => {
     expect(queryControl?.valid).toBeTruthy();
   });
 
-  it('should navigate when form is valid', () => {
+  it('should navigate to search results when form is valid and submitted', () => {
     component.ngOnInit();
     component.searchForm.patchValue({
       searchType: 'people',
@@ -64,7 +64,7 @@ describe('SearchFormComponent', () => {
     });
   });
 
-  it('should not navigate when form is invalid', () => {
+  it('should not trigger navigation when form is invalid (empty query)', () => {
     component.ngOnInit();
     component.searchForm.patchValue({
       searchType: 'people',

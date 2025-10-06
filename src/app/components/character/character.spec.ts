@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CharacterComponent } from './character.component';
 
-describe('Character card testcases', () => {
+describe('Star Wars Character Card Component', () => {
   let component: CharacterComponent;
   let fixture: ComponentFixture<CharacterComponent>;
   
@@ -31,11 +31,11 @@ describe('Character card testcases', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create character component successfully', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the correct character name', () => {
+  it('should display character name in card subtitle', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('Luke Skywalker');
 
@@ -43,7 +43,7 @@ describe('Character card testcases', () => {
     expect(nameElement.textContent.trim()).toBe('Luke Skywalker');
   });
 
-  it('should show the correct character gender', () => {
+  it('should display character gender information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('male');
     
@@ -54,7 +54,7 @@ describe('Character card testcases', () => {
     expect(genderRow?.textContent).toContain('male');
   });
 
-  it('should show the correct character birth year', () => {
+  it('should display character birth year information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('19BBY');
     
@@ -65,7 +65,7 @@ describe('Character card testcases', () => {
     expect(birthYearRow?.textContent).toContain('19BBY');
   });
 
-  it('should show the correct character eye color', () => {
+  it('should display character eye color information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('blue');
     
@@ -76,7 +76,7 @@ describe('Character card testcases', () => {
     expect(eyeColorRow?.textContent).toContain('blue');
   });
 
-  it('should show the correct character skin color', () => {
+  it('should display character skin color information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('fair');
     
@@ -87,7 +87,7 @@ describe('Character card testcases', () => {
     expect(skinColorRow?.textContent).toContain('fair');
   });
 
-  it('should display different character data correctly', () => {
+  it('should handle different character data and update display correctly', () => {
     const differentCharacter = {
       name: 'Princess Leia',
       gender: 'female',
