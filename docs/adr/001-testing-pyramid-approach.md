@@ -9,7 +9,7 @@ The FedEx QA assignment requires comprehensive test automation with maintainabil
 ## Decision
 We will implement a testing pyramid approach with three distinct layers:
 
-1. **Unit Tests (Foundation)** - 50 tests
+1. **Unit Tests (Foundation)** - 39 tests
    - Component logic testing using Jasmine/Karma
    - Service and utility function testing
    - Fast execution, isolated dependencies
@@ -20,7 +20,7 @@ We will implement a testing pyramid approach with three distinct layers:
    - Validation of external service contracts
    - Ensures API compatibility and data structure integrity
 
-3. **E2E Tests (UI)** - 2 critical scenarios
+3. **E2E Tests (UI)** - 3 critical scenarios
    - Playwright-based browser automation
    - Focus on critical business flows only
    - Complete user journey validation

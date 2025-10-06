@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { SearchPage } from './pages/SearchPage';
-import { testData } from './testData';
+import { testData } from './data/testData';
 
 test.describe('Star Wars Search - Critical Use Cases', () => {
   let searchPage: SearchPage;
