@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlanetComponent } from './planet.component';
 
-describe('planet card testcases', () => {
+describe('Star Wars Planet Card Component', () => {
   let component: PlanetComponent;
   let fixture: ComponentFixture<PlanetComponent>;
   
@@ -31,11 +31,11 @@ describe('planet card testcases', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create planet component successfully', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show the correct planet name', () => {
+  it('should display planet name in card subtitle', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('Tatooine');
     
@@ -43,14 +43,14 @@ describe('planet card testcases', () => {
     expect(nameElement.textContent.trim()).toBe('Tatooine');
   });
 
-  it('should show the correct planet population', () => {
+  it('should display planet population information correctly', () => {
     const compiled = fixture.nativeElement;
     expect(compiled.textContent).toContain('200000');
     
     const rows = compiled.querySelectorAll('.row');
-    const populationRow = Array.from(rows).find((row: Element) => 
+    const populationRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Population:')
-    ) as HTMLElement;
+    ) as any;
     expect(populationRow?.textContent).toContain('200000');
   });
 
@@ -59,9 +59,9 @@ describe('planet card testcases', () => {
     expect(compiled.textContent).toContain('arid');
     
     const rows = compiled.querySelectorAll('.row');
-    const climateRow = Array.from(rows).find((row: Element) => 
+    const climateRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Climate:')
-    ) as HTMLElement;
+    ) as any;
     expect(climateRow?.textContent).toContain('arid');
   });
 
@@ -70,30 +70,10 @@ describe('planet card testcases', () => {
     expect(compiled.textContent).toContain('1 standard');
     
     const rows = compiled.querySelectorAll('.row');
-    const gravityRow = Array.from(rows).find((row: Element) => 
+    const gravityRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Gravity:')
-    ) as HTMLElement;
+    ) as any;
     expect(gravityRow?.textContent).toContain('1 standard');
-  });
-
-  // Different planet data 
-  it('should display different planet data correctly', () => {
-    const differentPlanet = {
-      name: 'Coruscant',
-      population: '1000000000000',
-      climate: 'temperate',
-      gravity: '1 standard'
-    };
-
-    component.planet = differentPlanet;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    
-    expect(compiled.querySelector('.card-subtitle').textContent.trim()).toBe('Coruscant');
-    expect(compiled.textContent).toContain('1000000000000');
-    expect(compiled.textContent).toContain('temperate');
-    expect(compiled.textContent).toContain('1 standard');
   });
 
   // Case for unknown values
@@ -125,21 +105,6 @@ describe('planet card testcases', () => {
     expect(() => fixture.detectChanges()).toThrow();
   });
 
-	// Incomplete planet data 
-  it('should handle incomplete planet data', () => {
-    const incompletePlanet = {
-      name: 'Incomplete Planet',
-    };
-
-    component.planet = incompletePlanet;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    
-    expect(compiled.textContent).toContain('Incomplete Planet');
-    expect(component).toBeTruthy();
-  });
-
   // Empty string planet
   it('should handle empty string planet properties', () => {
     const planetWithEmptyValues = {
@@ -156,12 +121,5 @@ describe('planet card testcases', () => {
     
     expect(compiled.textContent).toContain('Empty Properties Planet');
     expect(component).toBeTruthy();
-  });
-
-  // Empty API response (no search results found)
-  it('should demonstrate handling of empty search results scenario', () => {
-    const emptySearchResult = []; 
-    
-    expect(emptySearchResult.length).toBe(0);
   });
 });

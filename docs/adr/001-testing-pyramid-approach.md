@@ -42,4 +42,3 @@ We will implement a testing pyramid approach with three distinct layers:
 ## Alternatives Considered
 - **E2E-heavy approach**: Rejected due to slow execution and high maintenance
 - **Unit-only approach**: Rejected due to lack of integration coverage
-- **Manual testing**: Rejected due to time constraints and repeatability issues

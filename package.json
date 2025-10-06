@@ -9,7 +9,7 @@
 		"test": "ng test",
 		"test:unit": "ng test --watch=false --browsers=ChromeHeadless --exclude='**/contracts/**/*.spec.ts'",
 		"test:contract": "ng test --watch=false --browsers=ChromeHeadless --include='**/contracts/**/*.spec.ts'",
-		"test:allure": "ng test --karma-config=karma-allure.conf.js --watch=false --browsers=ChromeHeadless",
+		"test:allure": "rm -rf allure-results/* && ng test --karma-config=karma-allure.conf.js --watch=false --browsers=ChromeHeadless",
 		"test:allure:report": "npm run test:allure && npm run allure:generate && npm run allure:open",
 		"allure:generate": "allure generate allure-results --clean -o allure-report",
 		"allure:open": "allure open allure-report",

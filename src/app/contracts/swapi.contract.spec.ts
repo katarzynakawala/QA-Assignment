@@ -2,46 +2,72 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../services/api.service';
 
+// Jasmine global function declarations
+declare let describe: any;
+declare let it: any;
+declare let beforeEach: any;
+declare let expect: any;
+declare let fail: any;
+declare let console: any;
+
 /**
- * Live SWAPI Integration Tests
- * These tests make REAL calls to SWAPI to validate the contract.
+ * SWAPI Contract Tests
+ * These tests make real calls to SWAPI to validate the contract.
  * Run with: npm run test:contract
- * 
- * Note: These tests require internet connection and depend on SWAPI availability.
  */
-describe('Live SWAPI Integration Tests', () => {
+describe('SWAPI Contract Tests', () => {
   let service: ApiService;
   
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [ApiService]
-    });
-    service = TestBed.inject(ApiService);
-  });
+
+  // Helper functions to reduce duplication
+  const validateHttpStatus = (httpResponse: any) => {
+    expect(httpResponse.status).toBe(200);
+    expect(httpResponse.statusText).toBe('OK');
+  };
+
+  const validateResponseStructure = (response: any) => {
+    expect(response).toBeDefined();
+    expect(response.result).toBeDefined();
+    expect(Array.isArray(response.result)).toBe(true);
+  };
+
+  const validatePersonProperties = (person: any) => {
+    expect(person.properties).toBeDefined();
+    expect(person.properties.name).toBeDefined();
+    expect(person.properties.height).toBeDefined();
+    expect(person.properties.mass).toBeDefined();
+    
+    expect(typeof person.properties.name).toBe('string');
+    expect(typeof person.properties.height).toBe('string');
+    expect(typeof person.properties.mass).toBe('string');
+  };
+
+  const validatePlanetProperties = (planet: any) => {
+    expect(planet.properties).toBeDefined();
+    expect(planet.properties.name).toBeDefined();
+    expect(planet.properties.climate).toBeDefined();
+    expect(planet.properties.terrain).toBeDefined();
+    
+    expect(typeof planet.properties.name).toBe('string');
+    expect(typeof planet.properties.climate).toBe('string');
+    expect(typeof planet.properties.terrain).toBe('string');
+  };
 
   // Helper function to validate API response with HTTP status
   const validateApiResponse = (
     searchType: string, 
     query: string, 
-    done: DoneFn,
+    done: () => void,
     validateContent?: (response: any) => void
   ) => {
     service.searchWithResponse(searchType, query).subscribe({
       next: (httpResponse) => {
-        // Always validate HTTP status
-        expect(httpResponse.status).toBe(200);
-        expect(httpResponse.statusText).toBe('OK');
-        
-        // Validate response structure
-        const response = httpResponse.body;
-        expect(response).toBeDefined();
-        expect(response.result).toBeDefined();
-        expect(Array.isArray(response.result)).toBe(true);
+        validateHttpStatus(httpResponse);
+        validateResponseStructure(httpResponse.body);
         
         // Custom content validation if provided
         if (validateContent) {
-          validateContent(response);
+          validateContent(httpResponse.body);
         }
         
         done();
@@ -53,22 +79,22 @@ describe('Live SWAPI Integration Tests', () => {
     });
   };
 
+  // test setup
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [ApiService]
+    });
+    service = TestBed.inject(ApiService);
+  });
+
   describe('Real People Search API', () => {
     it('should return HTTP 200 and valid people data for "luke" search', (done) => {
       validateApiResponse('people', 'luke', done, (response) => {
         if (response.result.length > 0) {
           const person = response.result[0];
           
-          // Validate required structure that frontend expects
-          expect(person.properties).toBeDefined();
-          expect(person.properties.name).toBeDefined();
-          expect(person.properties.height).toBeDefined();
-          expect(person.properties.mass).toBeDefined();
-          
-          // Validate data types
-          expect(typeof person.properties.name).toBe('string');
-          expect(typeof person.properties.height).toBe('string');
-          expect(typeof person.properties.mass).toBe('string');
+          validatePersonProperties(person);
           
           // Validate Luke Skywalker specific data (contract validation)
           expect(person.properties.name.toLowerCase()).toContain('luke');
@@ -93,16 +119,7 @@ describe('Live SWAPI Integration Tests', () => {
         if (response.result.length > 0) {
           const planet = response.result[0];
           
-          // Validate required structure that frontend expects
-          expect(planet.properties).toBeDefined();
-          expect(planet.properties.name).toBeDefined();
-          expect(planet.properties.climate).toBeDefined();
-          expect(planet.properties.terrain).toBeDefined();
-          
-          // Validate data types
-          expect(typeof planet.properties.name).toBe('string');
-          expect(typeof planet.properties.climate).toBe('string');
-          expect(typeof planet.properties.terrain).toBe('string');
+          validatePlanetProperties(planet);
           
           // Validate Tatooine specific data (contract validation)
           expect(planet.properties.name.toLowerCase()).toContain('tatooine');
@@ -148,15 +165,8 @@ describe('Live SWAPI Integration Tests', () => {
       testCalls.forEach((testCall, index) => {
         service.searchWithResponse(testCall.type, testCall.query).subscribe({
           next: (httpResponse) => {
-            // Validate HTTP status code
-            expect(httpResponse.status).toBe(200);
-            expect(httpResponse.statusText).toBe('OK');
-            
-            // Validate consistent structure
-            const response = httpResponse.body;
-            expect(response).toBeDefined();
-            expect(response.result).toBeDefined();
-            expect(Array.isArray(response.result)).toBe(true);
+            validateHttpStatus(httpResponse);
+            validateResponseStructure(httpResponse.body);
             
             completedCalls++;
             console.log(`✅ Call ${index + 1}/${totalCalls} structure valid`);

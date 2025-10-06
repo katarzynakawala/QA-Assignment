@@ -45,5 +45,3 @@ We will integrate Allure Framework for unified test reporting:
 
 ## Alternatives Considered
 - **Built-in Karma reporting**: Rejected due to limited visualization
-- **Custom HTML reports**: Rejected due to development overhead
-- **Jenkins/Azure DevOps native reporting**: Rejected due to GitHub Actions focus

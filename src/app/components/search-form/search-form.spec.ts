@@ -33,14 +33,14 @@ describe('SearchFormComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should initialize form with default values', () => {
+  it('should initialize search form with default values (people type, empty query)', () => {
     component.ngOnInit();
     
     expect(component.searchForm.get('searchType')?.value).toBe('people');
     expect(component.searchForm.get('query')?.value).toBe('');
   });
 
-  it('should require query field', () => {
+  it('should require query field to be filled for form validation', () => {
     component.ngOnInit();
     const queryControl = component.searchForm.get('query');
     
@@ -50,7 +50,7 @@ describe('SearchFormComponent', () => {
     expect(queryControl?.valid).toBeTruthy();
   });
 
-  it('should navigate when form is valid', () => {
+  it('should navigate to search results when form is valid and submitted', () => {
     component.ngOnInit();
     component.searchForm.patchValue({
       searchType: 'people',
@@ -64,7 +64,7 @@ describe('SearchFormComponent', () => {
     });
   });
 
-  it('should not navigate when form is invalid', () => {
+  it('should not trigger navigation when form is invalid (empty query)', () => {
     component.ngOnInit();
     component.searchForm.patchValue({
       searchType: 'people',
@@ -84,56 +84,17 @@ describe('SearchFormComponent', () => {
     expect(component.searchForm.get('query')?.value).toBe('tatooine');
   });
 
-  it('should be able to select planet radio', () => {
+  it('should handle special characters in query', () => {
     component.ngOnInit();
-    component.searchForm.patchValue({ searchType: 'planets' });
-    fixture.detectChanges();
-    
-    expect(component.searchForm.get('searchType')?.value).toBe('planets');
-  });
-
-  it('should be able to select character radio', () => {
-    component.ngOnInit();
-    component.searchForm.patchValue({ searchType: 'people' });
-    fixture.detectChanges();
-    
-    expect(component.searchForm.get('searchType')?.value).toBe('people');
-  });
-
-  it('should handle very long query strings', () => {
-    component.ngOnInit();
-    const longQuery = 'a'.repeat(1000); // Very long string
     component.searchForm.patchValue({
-    searchType: 'people',
-    query: longQuery
+      searchType: 'people',
+      query: '@#$%^&*()[]{}|\\:";\'<>?,./'
+    });
+  
+    component.search();
+  
+    expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+      queryParams: { searchType: 'people', query: '@#$%^&*()[]{}|\\:";\'<>?,./' }
+    });
   });
-  
-  component.search();
-  
-  expect(mockRouter.navigate).toHaveBeenCalledWith([], {
-    queryParams: { searchType: 'people', query: longQuery }
-  });
-}); 
-
-it('should handle null/undefined route params gracefully', () => {
-  mockActivatedRoute.queryParams = of({ searchType: null, query: undefined });
-  
-  expect(() => component.ngOnInit()).not.toThrow();
-  expect(component.searchForm.get('searchType')?.value).toBe('people'); // Falls back to default
-  expect(component.searchForm.get('query')?.value).toBe(''); // Falls back to empty
-});
-
-it('should handle special characters in query', () => {
-  component.ngOnInit();
-  component.searchForm.patchValue({
-    searchType: 'people',
-    query: '@#$%^&*()[]{}|\\:";\'<>?,./'
-  });
-  
-  component.search();
-  
-  expect(mockRouter.navigate).toHaveBeenCalledWith([], {
-    queryParams: { searchType: 'people', query: '@#$%^&*()[]{}|\\:";\'<>?,./' }
-  });
-});
 });

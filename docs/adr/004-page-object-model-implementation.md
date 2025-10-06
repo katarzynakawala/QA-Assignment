@@ -17,7 +17,6 @@ We will implement Page Object Model (POM) pattern for E2E tests:
 2. **Modern Playwright Patterns**
    - Constructor injection of `Page` object
    - Async/await for all page interactions
-   - Method chaining for fluent test writing
 
 3. **Unified Action Methods**
    - Combined search and verification methods
@@ -40,7 +39,6 @@ We will implement Page Object Model (POM) pattern for E2E tests:
 
 ### Negative
 - **Initial overhead** - More files and structure to maintain
-- **Learning curve** - Team needs to understand POM patterns
 - **Potential over-abstraction** - Risk of creating unnecessary complexity
 
 ## Alternatives Considered
