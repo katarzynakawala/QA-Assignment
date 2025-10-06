@@ -48,9 +48,9 @@ describe('Star Wars Planet Card Component', () => {
     expect(compiled.textContent).toContain('200000');
     
     const rows = compiled.querySelectorAll('.row');
-    const populationRow = Array.from(rows).find((row: Element) => 
+    const populationRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Population:')
-    ) as HTMLElement;
+    ) as any;
     expect(populationRow?.textContent).toContain('200000');
   });
 
@@ -59,9 +59,9 @@ describe('Star Wars Planet Card Component', () => {
     expect(compiled.textContent).toContain('arid');
     
     const rows = compiled.querySelectorAll('.row');
-    const climateRow = Array.from(rows).find((row: Element) => 
+    const climateRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Climate:')
-    ) as HTMLElement;
+    ) as any;
     expect(climateRow?.textContent).toContain('arid');
   });
 
@@ -70,9 +70,9 @@ describe('Star Wars Planet Card Component', () => {
     expect(compiled.textContent).toContain('1 standard');
     
     const rows = compiled.querySelectorAll('.row');
-    const gravityRow = Array.from(rows).find((row: Element) => 
+    const gravityRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Gravity:')
-    ) as HTMLElement;
+    ) as any;
     expect(gravityRow?.textContent).toContain('1 standard');
   });
 

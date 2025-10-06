@@ -48,9 +48,9 @@ describe('Star Wars Character Card Component', () => {
     expect(compiled.textContent).toContain('male');
     
     const rows = compiled.querySelectorAll('.row');
-    const genderRow = Array.from(rows).find((row: Element) => 
+    const genderRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Gender:')
-    ) as HTMLElement;
+    ) as any;
     expect(genderRow?.textContent).toContain('male');
   });
 
@@ -59,9 +59,9 @@ describe('Star Wars Character Card Component', () => {
     expect(compiled.textContent).toContain('19BBY');
     
     const rows = compiled.querySelectorAll('.row');
-    const birthYearRow = Array.from(rows).find((row: Element) => 
+    const birthYearRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Birth year:')
-    ) as HTMLElement;
+    ) as any;
     expect(birthYearRow?.textContent).toContain('19BBY');
   });
 
@@ -70,9 +70,9 @@ describe('Star Wars Character Card Component', () => {
     expect(compiled.textContent).toContain('blue');
     
     const rows = compiled.querySelectorAll('.row');
-    const eyeColorRow = Array.from(rows).find((row: Element) => 
+    const eyeColorRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Eye color:')
-    ) as HTMLElement;
+    ) as any;
     expect(eyeColorRow?.textContent).toContain('blue');
   });
 
@@ -81,9 +81,9 @@ describe('Star Wars Character Card Component', () => {
     expect(compiled.textContent).toContain('fair');
     
     const rows = compiled.querySelectorAll('.row');
-    const skinColorRow = Array.from(rows).find((row: Element) => 
+    const skinColorRow = Array.from(rows).find((row: any) => 
       row.textContent?.includes('Skin color:')
-    ) as HTMLElement;
+    ) as any;
     expect(skinColorRow?.textContent).toContain('fair');
   });
 
