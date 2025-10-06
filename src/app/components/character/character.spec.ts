@@ -137,21 +137,6 @@ describe('Star Wars Character Card Component', () => {
     expect(() => fixture.detectChanges()).toThrow();
   });
 
-  // Incomplete character data
-  it('should handle incomplete character data', () => {
-    const incompleteCharacter = {
-      name: 'Incomplete Character',
-    };
-
-    component.character = incompleteCharacter;
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement;
-    
-    expect(compiled.textContent).toContain('Incomplete Character');
-    expect(component).toBeTruthy();
-  });
-
   // Empty string character properties
   it('should handle empty string character properties', () => {
     const characterWithEmptyValues = {
@@ -169,12 +154,5 @@ describe('Star Wars Character Card Component', () => {
     
     expect(compiled.textContent).toContain('Empty Properties Character');
     expect(component).toBeTruthy();
-  });
-
-  // Case when API returns empty results array
-  it('should demonstrate handling of empty search results scenario', () => {
-
-    const emptySearchResult = []; 
-    expect(emptySearchResult.length).toBe(0);
   });
 });

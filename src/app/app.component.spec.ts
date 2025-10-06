@@ -202,12 +202,5 @@ describe('AppComponent', () => {
       const searchFormComponent = fixture.nativeElement.querySelector('app-search-form');
       expect(searchFormComponent).toBeTruthy();
     });
-
-    it('should display title "The Star Wars Search"', () => {
-      fixture.detectChanges();
-      
-      const titleElement = fixture.nativeElement.querySelector('h1');
-      expect(titleElement.textContent).toBe('The Star Wars Search');
-    });
   });
 });

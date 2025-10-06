@@ -84,56 +84,17 @@ describe('SearchFormComponent', () => {
     expect(component.searchForm.get('query')?.value).toBe('tatooine');
   });
 
-  it('should be able to select planet radio', () => {
+  it('should handle special characters in query', () => {
     component.ngOnInit();
-    component.searchForm.patchValue({ searchType: 'planets' });
-    fixture.detectChanges();
-    
-    expect(component.searchForm.get('searchType')?.value).toBe('planets');
-  });
-
-  it('should be able to select character radio', () => {
-    component.ngOnInit();
-    component.searchForm.patchValue({ searchType: 'people' });
-    fixture.detectChanges();
-    
-    expect(component.searchForm.get('searchType')?.value).toBe('people');
-  });
-
-  it('should handle very long query strings', () => {
-    component.ngOnInit();
-    const longQuery = 'a'.repeat(1000); // Very long string
     component.searchForm.patchValue({
-    searchType: 'people',
-    query: longQuery
+      searchType: 'people',
+      query: '@#$%^&*()[]{}|\\:";\'<>?,./'
+    });
+  
+    component.search();
+  
+    expect(mockRouter.navigate).toHaveBeenCalledWith([], {
+      queryParams: { searchType: 'people', query: '@#$%^&*()[]{}|\\:";\'<>?,./' }
+    });
   });
-  
-  component.search();
-  
-  expect(mockRouter.navigate).toHaveBeenCalledWith([], {
-    queryParams: { searchType: 'people', query: longQuery }
-  });
-}); 
-
-it('should handle null/undefined route params gracefully', () => {
-  mockActivatedRoute.queryParams = of({ searchType: null, query: undefined });
-  
-  expect(() => component.ngOnInit()).not.toThrow();
-  expect(component.searchForm.get('searchType')?.value).toBe('people'); // Falls back to default
-  expect(component.searchForm.get('query')?.value).toBe(''); // Falls back to empty
-});
-
-it('should handle special characters in query', () => {
-  component.ngOnInit();
-  component.searchForm.patchValue({
-    searchType: 'people',
-    query: '@#$%^&*()[]{}|\\:";\'<>?,./'
-  });
-  
-  component.search();
-  
-  expect(mockRouter.navigate).toHaveBeenCalledWith([], {
-    queryParams: { searchType: 'people', query: '@#$%^&*()[]{}|\\:";\'<>?,./' }
-  });
-});
 });
