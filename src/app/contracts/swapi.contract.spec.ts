@@ -12,10 +12,8 @@ declare let console: any;
 
 /**
  * Live SWAPI Integration Tests
- * These tests make REAL calls to SWAPI to validate the contract.
+ * These tests make real calls to SWAPI to validate the contract.
  * Run with: npm run test:contract
- * 
- * Note: These tests require internet connection and depend on SWAPI availability.
  */
 describe('Live SWAPI Integration Tests', () => {
   let service: ApiService;

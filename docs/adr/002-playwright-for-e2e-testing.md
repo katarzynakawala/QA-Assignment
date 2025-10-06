@@ -9,11 +9,6 @@ The assignment specifically requires Playwright with TypeScript for E2E/integrat
 ## Decision
 We will use Playwright with the following configuration:
 
-1. **Modern Locator Strategy**
-   - `getByRole()`, `getByText()` for semantic element selection
-   - Accessibility-first approach for better maintainability
-   - Avoid fragile CSS selectors and XPath
-
 2. **Single Browser Focus**
    - Chromium only for faster CI execution
    - Cross-browser testing not required for this assignment scope
@@ -38,11 +33,5 @@ We will use Playwright with the following configuration:
 - **TypeScript support** - Strong typing and IDE support
 
 ### Negative
-- **Learning curve** - Modern Playwright APIs differ from Selenium
-- **Limited browser coverage** - Only testing Chromium behavior
+- **Limited browser coverage** - Only testing Chromium behavior but no requirements about the browser in the task
 - **Tool dependency** - Tied to Playwright ecosystem
-
-## Alternatives Considered
-- **Selenium WebDriver**: Rejected due to complexity and maintenance overhead
-- **Cypress**: Rejected due to assignment requirement for Playwright
-- **Multiple browsers**: Rejected due to CI performance impact
