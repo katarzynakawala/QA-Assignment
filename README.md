@@ -22,7 +22,7 @@ This project implements a comprehensive testing strategy with documented archite
 
 ### End-to-End Testing with Playwright
 **Focused on critical business flows with Page Object Model:**
-- `npm run e2e` - Run E2E tests (2 critical scenarios, headless)
+- `npm run e2e` - Run E2E tests (3 critical scenarios, headless)
 - `npm run e2e:headed` - Run E2E tests with browser UI
 - `npm run e2e:debug` - Run E2E tests in debug mode
 - `npm run e2e:report` - View last E2E test report
@@ -50,7 +50,7 @@ This project implements a comprehensive testing strategy with documented archite
 **Comprehensive testing pipeline with optimized performance:**
 - **Unit Tests (50)** - Component and service logic validation
 - **Contract Tests (7)** - Live SWAPI API validation  
-- **E2E Tests (2)** - Critical business flow validation
+- **E2E Tests (3)** - Critical business flow validation
 - **Allure Reporting** - Professional test visualization
 - **Playwright Reports** - E2E test execution details
 
@@ -76,12 +76,15 @@ The Allure reports provide:
 
 ### E2E Test Coverage
 The Playwright end-to-end tests validate the **critical user journeys**:
-- 🔍 **People Search Flow** - Complete search process for Star Wars characters  
-- 🪐 **Planet Search Flow** - Complete search process for Star Wars planets
+- 🔍 **Multiple People Results** - Partial matching search returning multiple characters
+- 🪐 **Multiple Planet Results** - Partial matching search returning multiple planets  
+- ⌨️ **Enter Key Search** - Alternative search method using keyboard input
 
 **Focus**: Business-critical paths only. Detailed functionality covered by unit and contract tests.
 
 Reports are automatically generated in CI/CD pipeline and available as GitHub Actions artifacts.
+
+There is also one 🐛 bug in the application AC 'When results are shown for a search action, searching with an empty search input field will clear the search results (previous results are removed).' is not reperesented in the code so ideally we should create not passing test to refelct that and commit it under 🐛 bug ticket.
 
 # The Assessment
 Feel free to showcase your impressive skills by thoroughly testing the app.
