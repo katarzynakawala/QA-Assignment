@@ -17,7 +17,7 @@ This project implements a comprehensive testing strategy with documented archite
 - `npm run test:unit` - Run unit tests only (headless)
 - `npm run test:contract` - Run contract tests only (live SWAPI API)
 - `npm run test:all` - **Run complete test suite (unit + contract + E2E)**
-- `npm run test:allure` - Run complete test suite with Allure reporting
+- `npm run test:allure` - Run test suite with Allure reporting (unit + contract) 
 - `npm run test:allure:report` - Run tests, generate report, and open it
 
 ### End-to-End Testing with Playwright
@@ -28,11 +28,11 @@ This project implements a comprehensive testing strategy with documented archite
 - `npm run e2e:report` - View last E2E test report
 
 **Features:**
-- **Modern Playwright locators** (`getByRole`, `getByText`) for better accessibility and maintainability
 - Page Object Model (POM) architecture for maintainability
 - Automatic screenshots and videos on test failures
 - Test isolation with browser state cleanup
 - beforeEach/afterEach hooks for proper setup and teardown
+- Modern Playwright locators for better accessibility and maintainability
 
 ### Code Quality & Linting
 **Modern TypeScript-ESLint with flat config (optional):**
@@ -66,13 +66,6 @@ This project includes comprehensive Allure reporting for enhanced test visualiza
 - `npm run allure:generate` - Generate HTML report from results
 - `npm run allure:open` - Open the generated report in browser
 - `npm run allure:serve` - Generate and serve report on the fly
-
-The Allure reports provide:
-- ✅ **Test Results Overview** - Pass/fail status with detailed metrics
-- 📊 **Visual Dashboards** - Charts showing test distribution and trends
-- 🔍 **Detailed Test Cases** - Step-by-step execution with screenshots/logs
-- 📈 **Historical Trends** - Track test performance over time
-- 🏷️ **Test Categories** - Organized by features and test types
 
 ### E2E Test Coverage
 The Playwright end-to-end tests validate the **critical user journeys**:
